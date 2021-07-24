@@ -18,7 +18,7 @@ server.use(express.json())
 server.use(helmet())
 server.use(cors())
 
-server.get('/api/test', (req, res) => {
+server.get('/api/test2', (req, res) => {
   const thing = {
     thingy: 'thingy'
   }
