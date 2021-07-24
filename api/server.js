@@ -18,6 +18,13 @@ server.use(express.json())
 server.use(helmet())
 server.use(cors())
 
+server.get('/api/test', (req, res) => {
+  const thing = {
+    thingy: 'thingy'
+  }
+  res.json(thing)
+})
+
 server.get('/api/users', async (req, res) => {
   res.json(await getAllUsers())
 })
