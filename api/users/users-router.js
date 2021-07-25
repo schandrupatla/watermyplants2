@@ -7,10 +7,12 @@ const Users = require("./users-model");
 //     res.json(await getAllUsers())
 //   })
   
-  router.post('/api/users', async (req, res) => {
+//POST METHODS
+  router.post('/', async (req, res) => {
     res.status(201).json(await Users.add(req.body))
   })
 
+  //GET METHODS
   router.get("/",  (req, res, next) => { // done for you
     Users.find()
       .then(users => {

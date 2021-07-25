@@ -20,11 +20,18 @@ const pg = require('pg')
 if (process.env.DATABASE_URL) {
   pg.defaults.ssl = { rejectUnauthorized: false }
 }
-
+//sharedConfig copied from other projects of sqllite3
+// const sharedConfig = {
+//   client: 'sqlite3',
+//   useNullAsDefault: true,
+//   migrations: { directory: './data/migrations' },
+//   pool: { afterCreate: (conn, done) => conn.run('PRAGMA foreign_keys = ON', done) },
+// }
 const sharedConfig = {
   client: 'pg',
+  useNullAsDefault: true,
   migrations: { directory: './api/data/migrations' },
-  seeds: { directory: './api/data/seeds' },
+  seeds: { directory: './api/data/seeds' }
 }
 
 module.exports = {
