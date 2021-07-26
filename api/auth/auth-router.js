@@ -10,7 +10,9 @@ router.post("/register",  (req, res, next) => {
     
     let user ={
       username :req.body.username,
-      password: req.body.password
+      password: req.body.password,
+      user_phone:req.body.user_phone,
+      user_email:req.body.user_email
     }
   
     const rounds = process.env.BCRYPT_ROUNDS || 8; // 2 ^ 8
