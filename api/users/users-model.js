@@ -25,10 +25,15 @@ function findById(id) {
     const [newUserObject] = await db('users').insert(user, ['user_id', 'username', 'password'])
     return newUserObject // { user_id: 7, username: 'foo', password: 'xxxxxxx' }
   }
+  function findByPhone(phone){
+    let results =  db("users").where( "user_phone", phone ).first();
+    return results;
+  }
   
   module.exports = {
     find,
     add,
     findById,
-    findBy
+    findBy,
+    findByPhone
   };

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Users = require("./users-model");
-//const { restricted, only } = require("../auth/auth-middleware");
+
 
 
 // router.get('/api/users', async (req, res) => {
@@ -37,5 +37,13 @@ const Users = require("./users-model");
     .catch(next);
   })
   
+  router.get("/:user_phone",  (req, res, next) => { // done for you
+    Users. findByPhone(req.params.user_phone)
+      .then(user => {
+        res.json(user);
+      })
+      .catch(next);
+  });
+
   module.exports = router;
   

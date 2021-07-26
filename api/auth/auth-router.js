@@ -2,11 +2,14 @@ const router = require("express").Router();
 const bcrypt = require('bcryptjs');
 const Users = require("../users/users-model");
 const tokenBuilder = require('./token-builder')
-//const { checkUsernameExists, validateRoleName } = require('./auth-middleware');
+const { checkPayload,
+        checkUsernameExists,
+        checkUsernameFree,
+        checkUserPhoneExists } = require('./auth-middleware');
 
 
 
-router.post("/register",  (req, res, next) => {
+router.post("/register", checkPayload ,checkUsernameFree , (req, res, next) => {
     
     let user ={
       username :req.body.username,
@@ -27,7 +30,7 @@ router.post("/register",  (req, res, next) => {
       .catch(next);
   });
   
-  router.post('/login', (req, res, next) => {
+  router.post('/login', checkUsernameExists, (req, res, next) => {
       
    let { username, password } = req.body;
     Users.findBy({ username }) 
