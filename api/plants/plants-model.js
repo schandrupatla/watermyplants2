@@ -10,7 +10,7 @@ async function getAllPlants() {
 
   function getPlantByPlantId(plant_id) {  
     return db("plants as p")
-    .select("p.plant_nickname","p.plant_species" ,"p.h2ofrequency" )
+    .select("p.user_id","p.plant_nickname","p.plant_species" ,"p.h2ofrequency" )
     .where( "p.plant_id", plant_id ).first()
   }
 

@@ -23,7 +23,7 @@ const { checkPlantsPayload, checkPlantIdExists, checkPlantNicknameFree, checkPla
   });
  
   //POST METHODS
-  router.post('/', restricted, checkPlantsPayload, checkPlantNicknameFree, async (req, res, next) => {
+  router.post('/', restricted, checkPlantsPayload, checkPlantNicknameFree, checkPlantUserIdExists, async (req, res, next) => {
     try{
       res.status(201).json(await Plants.addPlant(req.body))
     }
