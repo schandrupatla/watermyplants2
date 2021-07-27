@@ -5,10 +5,7 @@
 ## Base URL
 https://watermyplants02.herokuapp.com
 
-DataBase Tables:
-
-Constraints![Screen Shot 2021-07-26 at 10 00 34 AM](https://user-images.githubusercontent.com/55516943/127029756-2811251c-19a3-4d4a-ac69-b88cd7dde316.png)
-
+![Screen Shot 2021-07-26 at 9 27 35 PM](https://user-images.githubusercontent.com/55516943/127095511-2ae5a9b9-fbce-4c08-9f71-efc6d9ee797f.png)
 
 ## API endpoints
 
@@ -16,7 +13,7 @@ Constraints![Screen Shot 2021-07-26 at 10 00 34 AM](https://user-images.githubus
 
 | Auth | Endpoint           | Required                  | Restrictions | Notes                                             |
 | -----| ------------------ | --------------------------| -------------| ------------------------------------------------- |
-| POST | /api/auth/register | username, password, phone | Username & phone must be unique| Creates a new user with auto Id.|
+| POST | /api/auth/register | username, password, phone | Username: unique,min 3 & max 25 chars, password:min 8 & max 25 chars & phone: unique, ###-###-#### format| Creates a new user with auto Id.|
 | POST | /api/auth/login    | username, password        | None         | Returns a welcome message and the JSON Web Token. |
 
 

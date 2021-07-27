@@ -9,8 +9,8 @@ const { checkPayload,
 
 
 
-router.post("/register", checkPayload ,checkUsernameFree , (req, res, next) => {
-    
+ router.post("/register", checkPayload , checkUsernameFree , checkUserPhoneExists,(req, res, next) => {
+
     let user ={
       username :req.body.username,
       password: req.body.password,
@@ -44,7 +44,7 @@ router.post("/register", checkPayload ,checkUsernameFree , (req, res, next) => {
             token,
           });
         } else {
-          next({ status: 401, message: 'invalid credentials' });
+          next({ status: 401, message: 'Invalid Credentials' });
         }
       })
       .catch(next);

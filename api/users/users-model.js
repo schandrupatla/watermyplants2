@@ -6,8 +6,8 @@ async function findAllUsers() {
     return results 
   }
 
-async function findByUserId(id) {  
-    let results = await  db("users").where( "user_id", id ).first();
+async function findByUserId(user_id) {  
+    let results = await db("users").where( "user_id", user_id ).first();
     return results;
   }
 
