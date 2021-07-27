@@ -20,6 +20,14 @@ const {  restricted } = require('../auth/auth-middleware');
       .catch(next);
   });
 
+    router.get("/:user_id/plants", restricted, (req, res, next) => { // done for you
+    Users.findPlantsByUserId(req.params.user_id)
+      .then(plants => {
+        res.status(200).json(plants)
+      })
+      .catch(next);
+  });
+
   router.get("/:username", restricted, (req,res,next)=>{
     Users.findByUsername({username:req.params.username})
     .then(user =>{

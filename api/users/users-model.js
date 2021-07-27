@@ -11,6 +11,13 @@ async function findByUserId(id) {
     return results;
   }
 
+  function findPlantsByUserId(user_id) {  
+    return db("users as u")
+    .select("u.user_id","u.username","p.plant_id","p.plant_nickname","p.plant_species" ,"p.h2ofrequency" )
+    .join("plants as p", "u.user_id", "p.user_id")
+    .where( "u.user_id", user_id )
+  }
+
   async function findByUsername(filter) {
     let results = await db("users").where(filter)
     return results;
@@ -36,6 +43,7 @@ async function findByUserId(id) {
   module.exports = {
     findAllUsers,
     findByUserId,
+    findPlantsByUserId, 
     findByUsername,
     findByPhone,
     addUser

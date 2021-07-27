@@ -5,7 +5,7 @@ const {  restricted } = require('../auth/auth-middleware');
   //GET METHODS
 
   router.get("/", restricted, (req, res, next) => { // done for you
-    Plants.getAllPlantsByUser()
+    Plants.getAllPlants()
       .then(plants => {
         res.status(200).json(plants)
       })
@@ -13,13 +13,13 @@ const {  restricted } = require('../auth/auth-middleware');
   });
 
 
-  router.get("/:user_id", restricted, (req, res, next) => { // done for you
-    Plants.getPlantsByUserId(req.params.user_id)
-      .then(plants => {
-        res.status(200).json(plants).first()
-      })
-      .catch(next);
-  });
+  // router.get("/:user_id", restricted, (req, res, next) => { // done for you
+  //   Plants.getPlantsByUserId(req.params.user_id)
+  //     .then(plants => {
+  //       res.status(200).json(plants).first()
+  //     })
+  //     .catch(next);
+  // });
 
   
   // router.get("/:plant_species", restricted, (req, res, next) => { // done for you

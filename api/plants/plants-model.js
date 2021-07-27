@@ -2,17 +2,17 @@ const db = require('../data/db-config');
 
 //Read Methods
 
-async function getAllPlantsByUser() {  
+async function getAllPlants() {  
         let results = await db("plants")
           return results         
   }
 
-function getPlantsByUserId(user_id) {  
-    return db("plants as p")
-    .select("u.user_id","u.username","p.plant_id","p.plant_nickname","p.plant_species" ,"p.h2ofrequency" )
-    .join("users as u", "p.user_id", "u.user_id")
-    .where( "u.user_id", user_id )
-  }
+// function getPlantsByUserId(user_id) {  
+//     return db("plants as p")
+//     .select("u.user_id","u.username","p.plant_id","p.plant_nickname","p.plant_species" ,"p.h2ofrequency" )
+//     .join("users as u", "p.user_id", "u.user_id")
+//     .where( "p.user_id", user_id )
+//   }
 
   function getPlantByPlantId(plant_id) {  
     return db("plants as p")
@@ -57,8 +57,7 @@ function getPlantsByUserId(user_id) {
   }
   
   module.exports = {
-    getAllPlantsByUser,
-    getPlantsByUserId,
+    getAllPlants,
     getPlantByPlantId,
     getBySpeciesname,
     addPlant,
