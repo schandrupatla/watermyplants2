@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Users = require("./users-model");
-const {  restricted, checkUserIdExists } = require('../auth/auth-middleware');
+const {  restricted, checkUserEdit, checkUserIdExists,  checkUsernameFree, checkUserPhoneExists } = require('../auth/auth-middleware');
 
 
 //GET METHODS
@@ -20,7 +20,7 @@ const {  restricted, checkUserIdExists } = require('../auth/auth-middleware');
       .catch(next);
   });
 
-    router.get("/:user_id/plants", restricted, checkUserIdExists,(req, res, next) => { // done for you
+    router.get("/:user_id/plants", restricted, checkUserIdExists, checkUsernameFree,(req, res, next) => { // done for you
     Users.findPlantsByUserId(req.params.user_id)
       .then(plants => {
         res.status(200).json(plants)
@@ -42,7 +42,7 @@ const {  restricted, checkUserIdExists } = require('../auth/auth-middleware');
   })
 
   //put methods
-  router.put('/:user_id',restricted, async (req, res, next) => {
+  router.put('/:user_id',restricted, checkUserEdit, checkUserIdExists, checkUsernameFree, checkUserPhoneExists,async (req, res, next) => {
     const user_id = parseInt(req.params.user_id);
     const contents = req.body;
     try {

@@ -112,6 +112,41 @@ function checkPayload(req, res, next) {
     next();
   }
 }
+function checkUserEdit(req, res, next) {
+  const { username, user_email, user_phone } = req.body;
+
+  if (
+    username === undefined ||
+    username.trim() === "" ||
+    user_email === undefined ||
+    user_email.trim() === "" ||
+    user_phone === undefined ||
+    user_phone.trim() === ""
+  ) {
+    res
+      .status(400)
+      .json({ message: "username, email and phone are required" });
+  } else if (username.trim().length < 3 || username.trim().length > 25) {
+    next({
+      status: 400,
+      message: "username must be between 3 and 25 chars",
+    });
+  } else if (user_phone.trim().length < 12 || user_phone.trim().length > 12 ) {
+    next({
+      status: 400,
+      message:
+        "phone number must be between 12 chars in length in the format ###-###-####",
+    });
+  } else {
+    req.user = {
+      // ...req.body,
+      username: username.trim(),
+      password: user_email.trim(),
+      user_phone: user_phone.trim(),
+    };
+    next();
+  }
+}
 //On FAILED registration due to the `username` being taken,
 async function checkUsernameFree(req, res, next) {
   try {
@@ -147,6 +182,7 @@ module.exports = {
   restricted,
   checkUserIdExists,
   checkPayload,
+  checkUserEdit,
   checkUsernameExists,
   checkUsernameFree,
   checkUserPhoneExists,
