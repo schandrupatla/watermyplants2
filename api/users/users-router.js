@@ -12,15 +12,15 @@ const {  restricted, checkUserEdit, checkUserIdExists,  checkUsernameFree, check
       .catch(next);
   });
 
-  router.get("/:user_id", restricted, checkUserIdExists, (req, res, next) => { // done for you
-    Users.findByUserId(req.params.user_id)
-      .then(user => {
-        res.json(user);
-      })
-      .catch(next);
-  });
+  // router.get("/:user_id", restricted, checkUserIdExists, (req, res, next) => { // done for you
+  //   Users.findByUserId(req.params.user_id)
+  //     .then(user => {
+  //       res.json(user);
+  //     })
+  //     .catch(next);
+  // });
 
-    router.get("/:user_id/plants", restricted, checkUserIdExists, checkUsernameFree,(req, res, next) => { // done for you
+    router.get("/:user_id/plants", restricted, checkUserIdExists, (req, res, next) => { // done for you
     Users.findPlantsByUserId(req.params.user_id)
       .then(plants => {
         res.status(200).json(plants)

@@ -139,7 +139,6 @@ function checkUserEdit(req, res, next) {
     });
   } else {
     req.user = {
-      // ...req.body,
       username: username.trim(),
       password: user_email.trim(),
       user_phone: user_phone.trim(),
