@@ -23,7 +23,7 @@ router.post("/register", checkPayload ,checkUsernameFree , (req, res, next) => {
   
     user.password = hash
    
-    Users.add(user)
+    Users.addUser(user)
       .then(saved => {
         res.status(201).json(saved);
       })
@@ -33,14 +33,14 @@ router.post("/register", checkPayload ,checkUsernameFree , (req, res, next) => {
   router.post('/login', checkUsernameExists, (req, res, next) => {
       
    let { username, password } = req.body;
-    Users.findBy({ username }) 
+    Users.findByUsername({ username }) 
       .then(([user]) => {
         if (user && bcrypt.compareSync(password, user.password)) {
           // generate a token and send it back
           const token = tokenBuilder(user)
           // the client will provide token in future requests
           res.status(200).json({
-            message: `welcome, ${user.username}`,
+            message: `welcome, ${user.username}!`,
             token,
           });
         } else {

@@ -14,13 +14,12 @@ async function restricted(req,res,next) {
            req.decodedJwt = decodedToken
      next()
    })
-  next();
 }
 
 //must not exist already in the `users` table
 async function checkUsernameExists(req, res, next) {
     try{
-       const users = await db.findBy({username:req.body.username})
+       const users = await db.findByUsername({username:req.body.username})
        if(users.length){
          req.user =users[0]
          next()
@@ -51,7 +50,7 @@ function checkPayload(req, res, next) {
 //On FAILED registration due to the `username` being taken,
 async function checkUsernameFree(req, res, next) {
     try{
-        const users = await db.findBy({username:req.body.username}) //as good as passing where("username", username)
+        const users = await db.findByUsername({username:req.body.username}) //as good as passing where("username", username)
         if(!users.length){
           next()
         }else{
