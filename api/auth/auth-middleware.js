@@ -146,19 +146,17 @@ function checkPayload(req, res, next) {
   }
 }
 function checkUserEdit(req, res, next) {
-  const { username, user_email, user_phone } = req.body;
+  const { username,  user_phone } = req.body;
 
   if (
     username === undefined ||
     username.trim() === "" ||
-    user_email === undefined ||
-    user_email.trim() === "" ||
     user_phone === undefined ||
     user_phone.trim() === ""
   ) {
     res
       .status(400)
-      .json({ message: "username, email and phone are required" });
+      .json({ message: "username and phone are required" });
   } else if (username.trim().length < 3 || username.trim().length > 25) {
     next({
       status: 400,
@@ -173,7 +171,6 @@ function checkUserEdit(req, res, next) {
   } else {
     req.user = {
       username: username.trim(),
-      password: user_email.trim(),
       user_phone: user_phone.trim(),
     };
     next();
