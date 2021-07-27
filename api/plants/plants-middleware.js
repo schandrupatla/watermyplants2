@@ -1,4 +1,5 @@
 const db = require("./plants-model");
+const Users = require("../users/users-model")
 
 
 function checkPlantsPayload(req, res, next) {
@@ -23,7 +24,7 @@ function checkPlantsPayload(req, res, next) {
       };
       next();
     }
-  }
+  }  
 
   //must exist already in the `users` table
 async function checkPlantIdExists(req, res, next) {
@@ -45,7 +46,7 @@ async function checkPlantIdExists(req, res, next) {
   
   async function checkPlantNicknameFree(req, res, next) {
     try {
-      const plant = await db.findByUsername({ username: req.body.plant_nickname }); //as good as passing where("username", username)
+      const plant = await db.getByNickname({ plant_nickname: req.body.plant_nickname }); //as good as passing where("username", username)
       if (!plant.length) {
         next();
       } else {
@@ -56,8 +57,28 @@ async function checkPlantIdExists(req, res, next) {
       next(err);
     }
   }
+
+  //must exist already in the `users` table
+async function checkPlantUserIdExists(req, res, next) {
+    try {
+      const users = await Users.findByUserId(req.body.user_id);
+      if (users !== undefined) {
+        req.user = users[0];
+        next();
+      } else {
+        next({
+          status: 401,
+          message: `Given user_id:${req.body.user_id} does not exists in the users table`,
+        });
+      }
+    } catch (err) {
+      next(err);
+    }
+  }
   module.exports = {
     checkPlantsPayload,
-    checkPlantIdExists
+    checkPlantIdExists,
+    checkPlantNicknameFree,
+    checkPlantUserIdExists
   };
   

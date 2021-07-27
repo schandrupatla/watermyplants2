@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Plants = require("./plants-model");
 const {  restricted } = require('../auth/auth-middleware');
-const { checkPlantsPayload, checkPlantIdExists   } = require('./plants-middleware');
+const { checkPlantsPayload, checkPlantIdExists, checkPlantNicknameFree, checkPlantUserIdExists  } = require('./plants-middleware');
 
   //GET METHODS
 
@@ -21,23 +21,20 @@ const { checkPlantsPayload, checkPlantIdExists   } = require('./plants-middlewar
       })
       .catch(next);
   });
-
-  
-  // router.get("/:plant_species", restricted, (req, res, next) => { // done for you
-  //   Plants.getBySpeciesname({plant_species:req.params.plant_species})
-  //     .then(plant => {
-  //       res.json(plant);
-  //     })
-  //     .catch(next);
-  // });
  
   //POST METHODS
-  router.post('/', restricted, checkPlantsPayload, async (req, res) => {
-    res.status(201).json(await Plants.addPlant(req.body))
+  router.post('/', restricted, checkPlantsPayload, checkPlantNicknameFree, async (req, res, next) => {
+    try{
+      res.status(201).json(await Plants.addPlant(req.body))
+    }
+    catch(err){
+      next(err)
+    }
+    
   })
 
 //put methods
-router.put('/:plant_id', async (req, res, next) => {
+router.put('/:plant_id',restricted, checkPlantsPayload, checkPlantNicknameFree, checkPlantUserIdExists, async (req, res, next) => {
     const plant_id = parseInt(req.params.plant_id);
     const contents = req.body;
     try {
@@ -50,7 +47,7 @@ router.put('/:plant_id', async (req, res, next) => {
 );
 
   //delete methods
-  router.delete('/:plant_id', restricted, async(req,res,next)=>{
+  router.delete('/:plant_id', restricted, checkPlantIdExists, async(req,res,next)=>{
     const plant_id = parseInt(req.params.plant_id);
     try{
       let dPlant = await Plants.deletePlant(plant_id)
