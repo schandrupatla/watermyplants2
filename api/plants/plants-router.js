@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Plants = require("./plants-model");
 const {  restricted } = require('../auth/auth-middleware');
+const { checkPlantsPayload, checkPlantIdExists   } = require('./plants-middleware');
 
   //GET METHODS
 
@@ -13,13 +14,13 @@ const {  restricted } = require('../auth/auth-middleware');
   });
 
 
-  // router.get("/:user_id", restricted, (req, res, next) => { // done for you
-  //   Plants.getPlantsByUserId(req.params.user_id)
-  //     .then(plants => {
-  //       res.status(200).json(plants).first()
-  //     })
-  //     .catch(next);
-  // });
+  router.get("/:plant_id", restricted, checkPlantIdExists,(req, res, next) => { // done for you
+    Plants.getPlantByPlantId(req.params.plant_id)
+      .then(plants => {
+        res.status(200).json(plants).first()
+      })
+      .catch(next);
+  });
 
   
   // router.get("/:plant_species", restricted, (req, res, next) => { // done for you
@@ -31,9 +32,10 @@ const {  restricted } = require('../auth/auth-middleware');
   // });
  
   //POST METHODS
-  router.post('/', restricted, async (req, res) => {
+  router.post('/', restricted, checkPlantsPayload, async (req, res) => {
     res.status(201).json(await Plants.addPlant(req.body))
   })
+
 //put methods
 router.put('/:plant_id', async (req, res, next) => {
     const plant_id = parseInt(req.params.plant_id);

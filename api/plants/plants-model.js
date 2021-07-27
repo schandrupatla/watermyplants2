@@ -7,17 +7,16 @@ async function getAllPlants() {
           return results         
   }
 
-// function getPlantsByUserId(user_id) {  
-//     return db("plants as p")
-//     .select("u.user_id","u.username","p.plant_id","p.plant_nickname","p.plant_species" ,"p.h2ofrequency" )
-//     .join("users as u", "p.user_id", "u.user_id")
-//     .where( "p.user_id", user_id )
-//   }
 
   function getPlantByPlantId(plant_id) {  
     return db("plants as p")
     .select("p.plant_nickname","p.plant_species" ,"p.h2ofrequency" )
     .where( "p.plant_id", plant_id ).first()
+  }
+
+  async function getByNickname(filter) {
+    let results = await db("plants").where(filter)
+    return results;
   }
 
   function getBySpeciesname(filter) {
@@ -59,6 +58,7 @@ async function getAllPlants() {
   module.exports = {
     getAllPlants,
     getPlantByPlantId,
+    getByNickname,
     getBySpeciesname,
     addPlant,
     updatePlant,
