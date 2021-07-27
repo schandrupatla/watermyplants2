@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const Users = require("../users/users-model");
 const tokenBuilder = require('./token-builder')
 const { checkPayload,
+  checkLoginPayload,
         checkUsernameExists,
         checkUsernameFree,
         checkUserPhoneExists } = require('./auth-middleware');
@@ -30,7 +31,7 @@ const { checkPayload,
       .catch(next);
   });
   
-  router.post('/login', checkUsernameExists, (req, res, next) => {
+  router.post('/login', checkLoginPayload, checkUsernameExists, (req, res, next) => {
       
    let { username, password } = req.body;
     Users.findByUsername({ username }) 

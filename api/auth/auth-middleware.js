@@ -34,6 +34,39 @@ async function restricted(req, res, next) {
 //   check('email', 'Invalid Email').isEmail().trim().escape(),
 // ];
 
+function checkLoginPayload(req, res, next) {
+  const { username, password } = req.body;
+
+  if (
+    username === undefined ||
+    username.trim() === "" ||
+    password === undefined ||
+    password.trim() === "" 
+  ) {
+    res
+      .status(400)
+      .json({ message: "username and password  are required" });
+  } else if (username.trim().length < 3 || username.trim().length > 25) {
+    next({
+      status: 400,
+      message: "username must be between 3 and 25 chars",
+    });
+  } else if (password.trim().length < 8 || password.trim().length > 25) {
+    next({
+      status: 400,
+      message: "password must be between 8 and 25 chars",
+    });
+  } else {
+    req.user = {
+      // ...req.body,
+      username: username.trim(),
+      password: password.trim(),
+
+    };
+    next();
+  }
+}
+
 //must exist already in the `users` table
 async function checkUserIdExists(req, res, next) {
   try {
@@ -181,6 +214,7 @@ module.exports = {
   restricted,
   checkUserIdExists,
   checkPayload,
+  checkLoginPayload,
   checkUserEdit,
   checkUsernameExists,
   checkUsernameFree,
