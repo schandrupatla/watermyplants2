@@ -50,6 +50,7 @@ async function updateUser (user_id, contents) {
     ]);
   return updatedUser;
 }
+
   
   module.exports = {
     findAllUsers,

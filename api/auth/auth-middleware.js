@@ -147,7 +147,13 @@ function checkPayload(req, res, next) {
 }
 function checkUserEdit(req, res, next) {
   const { username,  user_phone } = req.body;
-
+  if(req.body.user_id || req.body.password){
+    {
+      res
+        .status(400)
+        .json({ message: "user can not update user_id or password" });
+    } 
+  }
   if (
     username === undefined ||
     username.trim() === "" ||
