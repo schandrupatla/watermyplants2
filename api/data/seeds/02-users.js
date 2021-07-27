@@ -13,7 +13,7 @@ exports.seed = function(knex) {
       }   ,
       {
         username: 'guest',
-        password: '$2a$08$s6L.gDR1dp92cdXHeJX7N.Hq.GRE6TvJir7Npw86Dg.xst3G9bYMe', //123
+        password: '$2a$08$8Pbh.AJwwBeOqeVD4LQs2OIYY3D2.7EP7fzcORqGDiBla89EQiYwq', //guest1234
         user_email: 'test@lambdaschool.com', 
         user_phone: '408-333-666'
       }         

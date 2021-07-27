@@ -91,10 +91,10 @@ function checkPayload(req, res, next) {
       status: 400,
       message: "username must be between 3 and 25 chars",
     });
-  } else if (password.trim().length < 3 || password.trim().length > 25) {
+  } else if (password.trim().length < 8 || password.trim().length > 25) {
     next({
       status: 400,
-      message: "password must be between 3 and 25 chars",
+      message: "password must be between 8 and 25 chars",
     });
   } else if (user_phone.trim().length < 12 || user_phone.trim().length > 12 ) {
     next({
