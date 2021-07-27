@@ -37,8 +37,19 @@ async function findByUserId(user_id) {
     return newUserObject // { user_id: 7, username: 'foo', password: 'xxxxxxx' }
   }
   //edit methods
-
-  //delete methods
+//edit methods
+async function updateUser (user_id, contents) {
+  const [updatedUser] = await db('users')
+    .where('user_id', user_id)
+    .update(contents, [
+      "user_id",
+      "username",
+      "user_phone",
+      "user_email",
+      "created_at"
+    ]);
+  return updatedUser;
+}
   
   module.exports = {
     findAllUsers,
@@ -46,6 +57,7 @@ async function findByUserId(user_id) {
     findPlantsByUserId, 
     findByUsername,
     findByPhone,
-    addUser
+    addUser,
+    updateUser
     
   };

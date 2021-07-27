@@ -36,18 +36,23 @@ const {  restricted, checkUserIdExists } = require('../auth/auth-middleware');
     .catch(next);
   })
   
-  // router.get("/:user_phone",  (req, res, next) => { // done for you
-  //   Users. findByPhone(req.params.user_phone)
-  //     .then(user => {
-  //       res.json(user);
-  //     })
-  //     .catch(next);
-  // });
-
   //POST METHODS
   router.post('/', restricted, async (req, res) => {
     res.status(201).json(await Users.addUser(req.body))
   })
+
+  //put methods
+  router.put('/:user_id',restricted, async (req, res, next) => {
+    const user_id = parseInt(req.params.user_id);
+    const contents = req.body;
+    try {
+      const editedUser = await Users.updateUser(user_id, contents);
+      res.json(editedUser);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
   module.exports = router;
   
