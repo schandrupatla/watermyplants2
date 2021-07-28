@@ -4,13 +4,14 @@ const {  restricted, checkUserEdit, checkUserIdExists,  checkUsernameFree, check
 
 
 //GET METHODS
-  router.get("/", restricted,  (req, res, next) => { // done for you
-    Users.findAllUsers()
-      .then(users => {
-        res.status(200).json(users)
-      })
-      .catch(next);
-  });
+//commented this end point as frontend team decided they don't need this end point for security reasons
+  // router.get("/", restricted,  (req, res, next) => { // done for you
+  //   Users.findAllUsers()
+  //     .then(users => {
+  //       res.status(200).json(users)
+  //     })
+  //     .catch(next);
+  // });
 
   router.get("/:user_id", restricted, checkUserIdExists, (req, res, next) => { // done for you
     Users.findByUserId(req.params.user_id)

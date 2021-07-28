@@ -42,6 +42,7 @@ const { checkPayload,
           // the client will provide token in future requests
           res.status(200).json({
             message: `welcome, ${user.username}!`,
+            user_id:user.user_id,
             token,
           });
         } else {
