@@ -46,7 +46,7 @@ async function checkPlantIdExists(req, res, next) {
   
   async function checkPlantNicknameFree(req, res, next) {
     try {
-      const plant = await db.getByNickname({ plant_nickname: req.body.plant_nickname }); //as good as passing where("username", username)
+      const plant = await db.getByNickname({ plant_nickname: req.body.plant_nickname }); 
       if (!plant.length) {
         next();
       } else {

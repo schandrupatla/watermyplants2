@@ -6,15 +6,14 @@ exports.up = async (knex) => {
       users.string('password', 128).notNullable()
       users.string('user_email', 128).nullable()
       users.string('user_phone', 12).notNullable().unique()//000-000-000
-      //users.timestamps(false, true)
       users.string('created_at',{ precision: 6 }).defaultTo(knex.fn.now())
     })
     .createTable('plants', (plants) => {
       plants.increments('plant_id')
-      plants.string('plant_nickname', 128).notNullable().unique()
+      plants.string('plant_nickname', 128).notNullable()
       plants.string('plant_species', 128).notNullable()
       plants.integer('h2ofrequency').notNullable()//number of days
-      plants.string('plant_image', 128).nullable()
+      plants.string('plant_image', 256).nullable()
       plants.integer('user_id')
       .unsigned()
       .notNullable()

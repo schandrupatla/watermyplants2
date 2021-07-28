@@ -9,7 +9,6 @@ const { checkPayload,
         checkUserPhoneExists } = require('./auth-middleware');
 
 
-
  router.post("/register", checkPayload , checkUsernameFree , checkUserPhoneExists,(req, res, next) => {
 
     let user ={

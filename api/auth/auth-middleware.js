@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("./secrets");
 const db = require("../users/users-model");
-const { check, validationResult } = require("express-validator");
 
 async function restricted(req, res, next) {
   const token = req.headers.authorization;
@@ -16,23 +15,6 @@ async function restricted(req, res, next) {
     next();
   });
 }
-
-// const registerSchema = [
-//   check('username', 'Username must be at least 6 characters')
-//     .isLength({ min: 6 })
-//     .trim()
-//     .escape(),
-//   check('password')
-//     .matches(
-//       /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/
-//     )
-//     .withMessage(
-//       'Password must contain at least 8 characters, one uppercase, one number and one special case character'
-//     )
-//     .trim()
-//     .escape(),
-//   check('email', 'Invalid Email').isEmail().trim().escape(),
-// ];
 
 function checkLoginPayload(req, res, next) {
   const { username, password } = req.body;
@@ -58,7 +40,6 @@ function checkLoginPayload(req, res, next) {
     });
   } else {
     req.user = {
-      // ...req.body,
       username: username.trim(),
       password: password.trim(),
 

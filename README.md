@@ -1,12 +1,9 @@
-
-
-
 #  Build Week - unit 4 - Water My Plants
 
 ## Base URL
 https://watermyplants02.herokuapp.com
 
-![Screen Shot 2021-07-26 at 9 27 35 PM](https://user-images.githubusercontent.com/55516943/127095511-2ae5a9b9-fbce-4c08-9f71-efc6d9ee797f.png)
+![Screen Shot 2021-07-27 at 7 32 27 PM](https://user-images.githubusercontent.com/55516943/127254420-e706d71a-a89c-4c40-aa68-9f9785b8dd53.png)
 
 ## API endpoints
 
@@ -14,7 +11,7 @@ https://watermyplants02.herokuapp.com
 
 | Auth | Endpoint           | Required                  | Restrictions | Notes                                             |
 | -----| ------------------ | --------------------------| -------------| ------------------------------------------------- |
-| POST | /api/auth/register | username, password, phone | Username: unique,min 3 & max 25 chars, password:min 8 & max 25 chars & phone: unique, ###-###-#### format| Creates a new user with auto Id.|
+| POST | /api/auth/register | username, password, user_phone | Username: unique,min 3 & max 25 chars, password:min 8 & max 25 chars & phone: unique, ###-###-#### format| Creates a new user with auto Id.|
 | POST | /api/auth/login    | username, password        | None         | Returns a welcome message and the JSON Web Token. |
 
 
@@ -24,7 +21,7 @@ https://watermyplants02.herokuapp.com
 | -----| --------------------- | --------------------| -------------------|------------------------------------------|
 | GET  | /api/users/:user_id        | None           | authenticated user | Returns the specified user object.       |
 | GET  | /api/users/:user_id/plants | None           | authenticated user | Returns array of users plants.           |
-| PUT  | /api/users/:user_id        | username, phone, email |authenticated user| Returns updated user object.       |
+| PUT  | /api/users/:user_id        | username, user_phone, user_email |authenticated user| Returns updated user object.  |
 
 
 ### Plants
@@ -33,9 +30,9 @@ https://watermyplants02.herokuapp.com
 | -------| --------------- | --------------------| ----------------------| ------------------------------------------- |
 | GET    | /api/plants/    | None                | authenticated user    |  Returns specified plant object.            |
 | GET    | /api/plants/:plant_id | None          | authenticated user    |  Returns array of All plants.               |
-| POST   | /api/plants/    | nickname, species, h2oFrequency, userId | authenticated user        | Returns new plant object. |
-| PUT    | /api/plants/:plant_id | userId, nickname, species, h2oFrequency | authenticated user        | Returns updated plant object.  |
-| DELETE | /api/plants/:plant_id | plant_id            | authenticated user | Returns deleted record if successfully deleted. |
+| POST   | /api/plants/    | plant_nickname, plant_species, h2ofrequency, user_id | authenticated user        | Returns new plant object. |
+| PUT    | /api/plants/:plant_id | user_id, plant_nickname, plant_species, h2ofrequency | authenticated user        | Returns updated plant object.  |
+| DELETE | /api/plants/:plant_id | plant_id      | authenticated user | Returns deleted record if successfully deleted. |
 
 
 ### Detailed_endpoints
@@ -47,8 +44,8 @@ https://watermyplants02.herokuapp.com
 
 {  
     username,  
-    password,                                                                                                                                                         phone,                                                                                                                                                        
-    email (optional)                                                                                                                                                 
+    password,                                                                                                                                                         user_phone,                                                                                                                                                   
+    user_email (optional)                                                                                                                                                 
 }   
 
 *returns*    
@@ -105,7 +102,8 @@ https://watermyplants02.herokuapp.com
         plant_id,
         plant_nickname,
         plant_species,
-        h2ofrequency
+        h2ofrequency,
+        plant_image
     },
     {
         user_id,
@@ -113,7 +111,8 @@ https://watermyplants02.herokuapp.com
         plant_id,
         plant_nickname,
         plant_species,
-        h2ofrequency
+        h2ofrequency,
+        plant_image
     }
 ]
 
@@ -174,7 +173,8 @@ https://watermyplants02.herokuapp.com
     user_id,
     plant_nickname,
     plant_species,
-    h2ofrequency
+    h2ofrequency,
+    plant_image
 }
 
 [POST] plants (/api/plants/)
@@ -186,7 +186,8 @@ https://watermyplants02.herokuapp.com
     user_id,
     plant_nickname,
     plant_species,
-    h2ofrequency
+    h2ofrequency,
+    plant_image
 }
 
 *returns*
@@ -197,7 +198,8 @@ https://watermyplants02.herokuapp.com
     plant_id,
     plant_nickname,
     plant_species,
-    h2ofrequency
+    h2ofrequency,
+    plant_image
 }
 
 [PUT] plant restricted (/api/plants/:plantId)
@@ -206,9 +208,11 @@ https://watermyplants02.herokuapp.com
 
 {
 
+    user_id,
     plant_nickname,
     plant_species,
-    h2ofrequency
+    h2ofrequency,
+    plant_image
 }
 
 *returns*
